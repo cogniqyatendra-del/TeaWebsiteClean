@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kadak Adda</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/kadak-adda-logo.jpeg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container d-flex justify-content-between align-items-center">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <!-- <img src="images/kadak-adda-logo.jpeg" alt="Kadak Adda Logo" width="50" height="50"> -->
+          <div class="image-nav">
+            <img src="images/nav_image.jpeg" alt="" />
+          </div>
+
+          <span class="fw-bold text-white">Kadak Adda</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <nav id="primaryNav" class="site-nav" aria-label="Primary">
+          <ul class="nav-links list-unstyled mb-0">
+            <li>
+              <a href="#about" class="text-white text-decoration-none">About</a>
+            </li>
+            <li>
+              <a href="#menu" class="text-white text-decoration-none">Menu</a>
+            </li>
+            <li>
+              <a href="#reviews" class="text-white text-decoration-none"
+                >Reviews</a
+              >
+            </li>
+            <li>
+              <a href="manage.html" class="text-white text-decoration-none"
+                >Manage</a
+              >
+            </li>
+            <li>
+              <a href="contact.html" class="text-white text-decoration-none"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Fresh Handcrafted Chai Every Day</h1>
+        <p>Made with real ingredients and served with warmth.</p>
+        <button
+          id="openTakeaway"
+          class="btn btn-takeaway"
+          data-bs-toggle="modal"
+          data-bs-target="#takeawayModal"
+        >
+          Order for Takeaway
+        </button>
+      </div>
+      <div class="scroll-indicator"></div>
+    </section>
+
+    <section id="about" class="fade-scroll">
+      <div class="container about p-5">
+        <div class="about-content-wrapper">
+          <h2 class="text-center mb-4">About Kadak Adda</h2>
+          <p class="lead text-center">
+            At <strong>Kadak Adda</strong>, every cup of chai is brewed to
+            perfection – bold, fresh, and filled with authentic Indian flavors.
+            We bring the timeless charm of traditional tea culture into a
+            <strong>modern, cozy setup</strong> where everyone feels at home.
+          </p>
+          <p class="text-center">
+            Whether you're a <strong>student catching up with friends</strong>,
+            a <strong>professional taking a break</strong>, or simply a
+            <strong>chai lover</strong> searching for that perfect sip –
+            <strong>Kadak Adda</strong> is your go-to hangout spot. From
+            <em>Masala</em> to <em>Elaichi</em>, <em>Kulhad</em> to
+            <em>Chocolate Chai</em>, every blend is handcrafted with love,
+            warmth, and a promise of quality. Because here, it's not just chai –
+            it's a kadak connection shared over every cup.
+          </p>
+        </div>
+        <span class="decorative-element decorative-1">☕</span>
+        <span class="decorative-element decorative-2">🫖</span>
+        <span class="decorative-element decorative-3">🍃</span>
+        <span class="decorative-element decorative-4">☕</span>
+      </div>
+    </section>
+
+    <section id="menu" class="fade-scroll">
+      <div class="container text-center">
+        <h2 class="mb-5">Our Menu</h2>
+        <div class="row g-4">
+          <!-- Menu Item -->
+          <div class="col-md-4">
+            <div class="menu-item p-4">
+              <img
+                src="images/masala.jpg"
+                alt="images/Masala Chai"
+                class="img-fluid rounded mb-3"
+              />
+              <h5>Masala Chai</h5>
+              <p>Spiced, aromatic, and perfectly kadak. <br /><br /></p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="menu-item p-4">
+              <img
+                src="images/kulhad.jpg"
+                alt="images/Kulhad Chai"
+                class="img-fluid rounded mb-3"
+              />
+              <h5>Kulhad Chai</h5>
+              <p>Served traditionally in a clay cup for earthy flavor.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="menu-item p-4">
+              <img
+                src="images/ginger.jpg"
+                alt="Ginger Elaichi Chai"
+                class="img-fluid rounded mb-3"
+              />
+              <h5>Ginger / Elaichi Chai</h5>
+              <p>Refreshing blends with authentic Indian taste. <br /><br /></p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="menu-item p-4">
+              <img
+                src="images/chocolate.jpg"
+                alt="Chocolate Chai"
+                class="img-fluid rounded mb-3"
+              />
+              <h5>Chocolate Chai</h5>
+              <p>Rich chocolate meets classic chai – a must-try!</p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="menu-item p-4">
+              <img
+                src="images/cold.jpg"
+                alt="Iced Tea"
+                class="img-fluid rounded mb-3"
+              />
+              <h5>Cold / Iced Tea</h5>
+              <p>Cool twist to your favorite brew. <br /><br /></p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="menu-item p-4">
+              <img
+                src="images/snacks.jpg"
+                alt="Snacks"
+                class="img-fluid rounded mb-3"
+              />
+              <h5>Snacks</h5>
+              <p>Bun maska, Maggi, sandwiches, and more. <br /><br /></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- GALLERY SECTION -->
+    <section id="gallery" class="fade-scroll py-5 gallery-section">
+      <div class="container text-center">
+        <div class="gallery-header mb-5">
+          <h2 class="gallery-title mb-3">Our Gallery</h2>
+          <p class="gallery-subtitle">
+            Capturing moments of warmth, flavor, and authentic chai experiences
+          </p>
+        </div>
+        <div class="row g-4 justify-content-center gallery-grid">
+          <div class="col-lg-4 col-md-6 col-sm-6 gallery-item">
+            <a
+              href="images/pexels-thoda-creative-2082364-3904035.jpg"
+              data-lightbox="chai-gallery"
+              data-title="Freshly brewed kadak chai"
+              class="gallery-link"
+            >
+              <div class="gallery-image-wrapper">
+                <img
+                  src="images/pexels-thoda-creative-2082364-3904035.jpg"
+                  alt="Kadak Chai"
+                  class="gallery-img"
+                />
+                <div class="gallery-overlay">
+                  <div class="gallery-content">
+                    <h4 class="gallery-caption">Freshly Brewed</h4>
+                    <p class="gallery-description">Kadak Chai</p>
+                    <span class="gallery-icon">☕</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 gallery-item">
+            <a
+              href="images/glass_cup.jpg"
+              data-lightbox="chai-gallery"
+              data-title="Kulhad Chai served hot"
+              class="gallery-link"
+            >
+              <div class="gallery-image-wrapper">
+                <img
+                  src="images/glass_cup.jpg"
+                  alt="Kulhad Chai"
+                  class="gallery-img"
+                />
+                <div class="gallery-overlay">
+                  <div class="gallery-content">
+                    <h4 class="gallery-caption">Traditional</h4>
+                    <p class="gallery-description">Kulhad Chai</p>
+                    <span class="gallery-icon">🍵</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 gallery-item">
+            <a
+              href="images/bunnn.png"
+              data-lightbox="chai-gallery"
+              data-title="Chai & Bun Maska Combo"
+              class="gallery-link"
+            >
+              <div class="gallery-image-wrapper">
+                <img
+                  src="images/bunnn.png"
+                  alt="Bun Maska"
+                  class="gallery-img"
+                />
+                <div class="gallery-overlay">
+                  <div class="gallery-content">
+                    <h4 class="gallery-caption">Perfect Combo</h4>
+                    <p class="gallery-description">Chai & Bun Maska</p>
+                    <span class="gallery-icon">🥖</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 gallery-item">
+            <a
+              href="images/ambience.jpg"
+              data-lightbox="chai-gallery"
+              data-title="Evening chai ambience"
+              class="gallery-link"
+            >
+              <div class="gallery-image-wrapper">
+                <img
+                  src="images/ambience.jpg"
+                  alt="Ambience"
+                  class="gallery-img"
+                />
+                <div class="gallery-overlay">
+                  <div class="gallery-content">
+                    <h4 class="gallery-caption">Cozy Ambience</h4>
+                    <p class="gallery-description">Evening Vibes</p>
+                    <span class="gallery-icon">🌆</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 gallery-item">
+            <a
+              href="images/tea flavours.jpg"
+              data-lightbox="chai-gallery"
+              data-title="Assorted chai flavors"
+              class="gallery-link"
+            >
+              <div class="gallery-image-wrapper">
+                <img
+                  src="images/tea flavours.jpg"
+                  alt="Flavors"
+                  class="gallery-img"
+                />
+                <div class="gallery-overlay">
+                  <div class="gallery-content">
+                    <h4 class="gallery-caption">Variety</h4>
+                    <p class="gallery-description">Assorted Flavors</p>
+                    <span class="gallery-icon">🌿</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 gallery-item">
+            <a
+              href="images/adda.jpg"
+              data-lightbox="chai-gallery"
+              data-title="Kadak Adda – Your chai spot!"
+              class="gallery-link"
+            >
+              <div class="gallery-image-wrapper">
+                <img
+                  src="images/adda.jpg"
+                  alt="Kadak Adda"
+                  class="gallery-img"
+                />
+                <div class="gallery-overlay">
+                  <div class="gallery-content">
+                    <h4 class="gallery-caption">Kadak Adda</h4>
+                    <p class="gallery-description">Your Chai Spot</p>
+                    <span class="gallery-icon">🏠</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="body testimonials py-5">
+      <div class="container text-center">
+        <h2 class="mb-4 fw-bold">What Our Customers Say</h2>
+        <div class="row justify-content-center">
+          <!-- Testimonial 1 -->
+          <div class="col-md-4 mb-4">
+            <div class="card testimonial-card shadow-sm p-4">
+              <p class="testimonial-text">
+                "Kadak Adda is my favorite chai spot! The flavors are rich and
+                authentic, and the cozy ambiance makes it the perfect place to
+                relax and chat with friends."
+              </p>
+              <h6 class="mt-3 fw-bold">– Aarav Mehta</h6>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="col-md-4 mb-4">
+            <div class="card testimonial-card shadow-sm p-4">
+              <p class="testimonial-text">
+                "I love the Masala Chai here – it tastes just like homemade! The
+                staff is friendly, and the vibe is peaceful. A perfect place for
+                chai lovers."
+              </p>
+              <h6 class="mt-3 fw-bold">– Priya Sharma</h6>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="col-md-4 mb-4">
+            <div class="card testimonial-card shadow-sm p-4">
+              <p class="testimonial-text">
+                "Every visit to Kadak Adda feels refreshing! From the aroma to
+                the taste, everything is top-notch. Great chai, great people,
+                great atmosphere."
+              </p>
+              <h6 class="mt-3 fw-bold">– Rohit Verma</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI FEEDBACK INSIGHTS SECTION -->
+    <section
+      id="feedback"
+      class="fade-scroll py-5"
+      style="background-color: #fffaf5"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10 col-12">
+            <div class="automation-card h-100 compact-card feedback-card">
+              <h2 class="text-center mb-2">We'd Love Your Feedback</h2>
+              <p class="text-center small text-muted mb-4">
+                Share your experience and help us improve! Collect feedback
+                instantly and surface what matters most.
+              </p>
+
+              <form id="feedbackForm" class="row g-2">
+                <div class="col-md-6 col-12">
+                  <label for="feedbackName" class="form-label small"
+                    >Name</label
+                  >
+                  <input
+                    type="text"
+                    id="feedbackName"
+                    class="form-control form-control-sm"
+                    placeholder="Optional"
+                  />
+                </div>
+                <div class="col-md-6 col-12">
+                  <label for="feedbackRating" class="form-label small"
+                    >Rating</label
+                  >
+                  <select
+                    id="feedbackRating"
+                    class="form-select form-select-sm"
+                  >
+                    <option value="5">5 - Loved it</option>
+                    <option value="4">4 - Great</option>
+                    <option value="3">3 - Okay</option>
+                    <option value="2">2 - Needs work</option>
+                    <option value="1">1 - Poor</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label for="feedbackNotes" class="form-label small"
+                    >Feedback</label
+                  >
+                  <textarea
+                    id="feedbackNotes"
+                    class="form-control form-control-sm"
+                    rows="3"
+                    placeholder="Tell us about the chai, service, ambience..."
+                    required
+                  ></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-chai btn-sm w-100">
+                    Submit Feedback
+                  </button>
+                </div>
+              </form>
+
+              <ul class="list-unstyled mt-4 mb-0" id="feedbackList"></ul>
+
+              <div class="automation-output mt-4" id="feedbackSummary"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="api-key-banner p-4 mb-4 rounded-4">
+      <div class="row g-3 align-items-center">
+        <div class="col-lg-4">
+          <label for="geminiApiKey" class="form-label fw-semibold mb-0"
+            >Google Gemini API Key</label
+          >
+          <p class="small mb-0 text-muted">
+            Create a free key at
+            <a
+              href="https://aistudio.google.com/app/apikey"
+              target="_blank"
+              rel="noopener"
+              >Google AI Studio</a
+            >. Stored locally in your browser.
+          </p>
+        </div>
+        <div class="col-lg-8">
+          <div class="d-flex flex-column flex-lg-row gap-2">
+            <input
+              type="password"
+              id="geminiApiKey"
+              class="form-control"
+              placeholder="Paste your Gemini API key"
+              autocomplete="off"
+            />
+            <div class="d-flex gap-2">
+              <button
+                type="button"
+                id="saveGeminiKey"
+                class="btn btn-chai px-4"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                id="toggleGeminiKey"
+                class="btn btn-outline-chai px-3"
+              >
+                Show
+              </button>
+            </div>
+          </div>
+          <p id="geminiStatus" class="small text-success mt-2 mb-0"></p>
+        </div>
+      </div>
+    </div>
+    <footer class="footer-modern">
+      <div class="container text-center">
+        <p class="footer-text">Show Us Some Love On</p>
+        <div class="footer-icons">
+          <a href="#" aria-label="Instagram"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+          <a href="#" aria-label="Facebook"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="YouTube"
+            ><i class="fa-brands fa-youtube"></i
+          ></a>
+          <!-- <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a> -->
+        </div>
+      </div>
+    </footer>
+
+    <!-- ✅ Make sure this is at the bottom of your body tag -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Fixed Chat Widget -->
+    <div class="chat-widget-container" id="chatWidgetContainer">
+      <div class="chat-widget-popup" id="chatWidgetPopup">
+        <div class="chat-widget-header">
+          <div class="d-flex align-items-center">
+            <div class="chat-widget-avatar">☕</div>
+            <div class="ms-2">
+              <h6 class="mb-0 fw-bold">Kadak Adda Assistant</h6>
+              <small class="text-muted">We're online</small>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn-close-chat"
+            id="closeChatWidget"
+            aria-label="Close"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="chat-widget-body">
+          <div class="chat-window" id="chatbotMessages">
+            <div class="chat-message bot">
+              👋 Hi! I'm the Kadak Adda assistant. Ask me anything about our
+              chai, snacks, or delivery.
+            </div>
+          </div>
+          <div class="chat-widget-quick-questions">
+            <button
+              type="button"
+              class="btn-quick-question"
+              data-question="What flavours do you have?"
+            >
+              Menu flavours
+            </button>
+            <button
+              type="button"
+              class="btn-quick-question"
+              data-question="Do you deliver?"
+            >
+              Delivery info
+            </button>
+            <button
+              type="button"
+              class="btn-quick-question"
+              data-question="What are your opening hours?"
+            >
+              Opening hours
+            </button>
+          </div>
+        </div>
+        <div class="chat-widget-footer">
+          <form id="chatbotForm" class="chat-input d-flex gap-2">
+            <input
+              type="text"
+              id="chatbotPrompt"
+              class="form-control"
+              placeholder="Type a question..."
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="btn btn-chai btn-send">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </form>
+          <button
+            type="button"
+            id="clearChatbot"
+            class="btn btn-link btn-sm text-muted mt-2 p-0"
+            style="font-size: 0.75rem"
+          >
+            Clear chat
+          </button>
+        </div>
+      </div>
+      <button
+        class="chat-widget-toggle"
+        id="chatWidgetToggle"
+        aria-label="Open chat"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="chat-icon"
+        >
+          <path
+            d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="close-icon"
+          style="display: none"
+        >
+          <path
+            d="M15 5L5 15M5 5L15 15"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="modal fade"
+      id="takeawayModal"
+      tabindex="-1"
+      aria-labelledby="takeawayModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="takeawayModalLabel">
+              ☕ Online Takeaway Order
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center lead small">
+              Choose your favorite chai and snacks for quick pickup!
+            </p>
+            <form id="takeawayForm">
+              <div class="mb-3">
+                <label for="orderItem" class="form-label fw-bold"
+                  >Select Chai</label
+                >
+                <select class="form-select" id="orderItem" required>
+                  <option value="" disabled selected>Choose a flavor...</option>
+                  <option value="masala">Masala Chai</option>
+                  <option value="kulhad">Kulhad Chai</option>
+                  <option value="ginger">Ginger Chai</option>
+                  <option value="elaichi">Elaichi Chai</option>
+                  <option value="chocolate">Chocolate Chai</option>
+                  <option value="iced">Cold / Iced Tea</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="orderQuantity" class="form-label fw-bold"
+                  >Quantity</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="orderQuantity"
+                  value="1"
+                  min="1"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="orderNotes" class="form-label fw-bold"
+                  >Special Request (Optional)</label
+                >
+                <textarea
+                  class="form-control"
+                  id="orderNotes"
+                  rows="2"
+                  placeholder="e.g., Less sugar, extra ginger, add a snack..."
+                ></textarea>
+              </div>
+
+              <div class="mb-4">
+                <label for="pickupName" class="form-label fw-bold"
+                  >Name for Pickup</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pickupName"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+
+              <button type="submit" class="btn btn-chai w-100">
+                Place Takeaway Order (Simulated)
+              </button>
+            </form>
+            <p class="text-center mt-2 small text-muted">
+              *This is a basic template. Actual ordering requires backend
+              integration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts - Load in correct order -->
+    <!-- jQuery (required for Lightbox2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Lightbox2 JS (must come after jQuery) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+    
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a2d9d5a64d.js" crossorigin="anonymous"></script>
+    
+    <!-- Your custom scripts -->
+    <script src="chatbot-widget.js"></script>
+    <script src="dasboard.js"></script>
+    
+    <!-- Lightbox configuration -->
+    <script>
+      lightbox.option({
+        'resizeDuration': 0,
+        'fadeDuration': 0,
+        'imageFadeDuration': 0,
+        'wrapAround': true,
+        'albumLabel': "Image %1 of %2"
+      });
+    </script>
+    
+    <!-- Custom Lightbox Styles -->
+    <style>
+      /* Remove all animations */
+      .lightbox,
+      .lb-outerContainer,
+      .lb-container,
+      .lb-image,
+      .lb-dataContainer,
+      .lb-data,
+      .lb-nav {
+        transition: none !important;
+        animation: none !important;
+      }
+      
+      /* Move close button to top right */
+      .lb-close {
+        position: fixed !important;
+        top: 20px !important;
+        right: 20px !important;
+        width: 40px !important;
+        height: 40px !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+        border-radius: 50% !important;
+        opacity: 1 !important;
+      }
+      
+      .lb-close:hover {
+        background: rgba(0, 0, 0, 0.9) !important;
+      }
+      
+      /* Style the close icon */
+      .lb-close::before {
+        content: '×' !important;
+        font-size: 35px !important;
+        color: white !important;
+        line-height: 40px !important;
+        display: block !important;
+        text-align: center !important;
+      }
+      
+      /* Hide default background image */
+      .lb-close {
+        background-image: none !important;
+      }
+      
+      /* Improve overall lightbox appearance */
+      .lb-data .lb-details {
+        width: 100% !important;
+        text-align: center !important;
+      }
+      
+      .lb-data .lb-caption {
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        color: #fff !important;
+      }
+      
+      .lb-data .lb-number {
+        color: rgba(255, 255, 255, 0.7) !important;
+      }
+    </style>
+  </body>
+</html>

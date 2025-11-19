@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Inventory - Kadak Adda</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="images/kadak-adda-logo.jpeg" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container d-flex justify-content-between align-items-center">
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+          <div class="image-nav">
+            <img src="images/nav_image.jpeg" alt="" />
+          </div>
+          <span class="fw-bold text-white">Kadak Adda</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <nav id="primaryNav" class="site-nav" aria-label="Primary">
+          <ul class="nav-links list-unstyled mb-0">
+            <li>
+              <a href="index.html#about" class="text-white text-decoration-none">About</a>
+            </li>
+            <li>
+              <a href="index.html#menu" class="text-white text-decoration-none">Menu</a>
+            </li>
+            <li>
+              <a href="index.html#reviews" class="text-white text-decoration-none">Reviews</a>
+            </li>
+            <li>
+              <a href="manage.html" class="text-white text-decoration-none active">Manage</a>
+            </li>
+            <li>
+              <a href="contact.html" class="text-white text-decoration-none">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="automation" class="fade-scroll" style="background-color: #fffaf5; min-height: 100vh; padding: 40px 0;">
+      <div class="container">
+        <h2 class="text-center mb-3">AI &amp; Automation Suite</h2>
+        <p class="lead text-center mb-5">
+          Streamline customer conversations, daily promotions, feedback, and
+          stock decisions with Gemini-powered workflows built for Kadak Adda.
+        </p>
+
+        <div class="api-key-banner p-4 mb-4 rounded-4">
+          <div class="row g-3 align-items-center">
+            <div class="col-lg-4">
+              <label for="geminiApiKey" class="form-label fw-semibold mb-0"
+                >Google Gemini API Key</label
+              >
+              <p class="small mb-0 text-muted">
+                Create a free key at
+                <a
+                  href="https://aistudio.google.com/app/apikey"
+                  target="_blank"
+                  rel="noopener"
+                  >Google AI Studio</a
+                >. Stored locally in your browser.
+              </p>
+            </div>
+            <div class="col-lg-8">
+              <div class="d-flex flex-column flex-lg-row gap-2">
+                <input
+                  type="password"
+                  id="geminiApiKey"
+                  class="form-control"
+                  placeholder="Paste your Gemini API key"
+                  autocomplete="off"
+                />
+                <div class="d-flex gap-2">
+                  <button
+                    type="button"
+                    id="saveGeminiKey"
+                    class="btn btn-chai px-4"
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    id="toggleGeminiKey"
+                    class="btn btn-outline-chai px-3"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+              <p id="geminiStatus" class="small text-success mt-2 mb-0"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-lg-12 col-md-12">
+            <div class="automation-card h-100 compact-card inventory-card">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 class="h6 mb-0">Inventory &amp; Sales Dashboard</h3>
+                <button
+                  type="button"
+                  id="refreshInventoryInsights"
+                  class="btn btn-outline-chai btn-sm"
+                >
+                  Get AI suggestions
+                </button>
+              </div>
+              <p class="small text-muted mb-3">
+                Track stock, sales velocity, and re-order priorities in one
+                glance.
+              </p>
+
+              <div class="table-responsive inventory-table-container">
+                <table class="table table-sm align-middle mb-2 inventory-table">
+                  <thead>
+                    <tr>
+                      <th class="inventory-th">Item</th>
+                      <th class="inventory-th text-center">Stock</th>
+                      <th class="inventory-th text-center">Sold</th>
+                      <th class="inventory-th text-center">Reorder</th>
+                      <th class="inventory-th text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="inventoryTable"></tbody>
+                </table>
+              </div>
+
+              <form id="inventoryForm" class="row g-2 inventory-form">
+                <div class="col-12">
+                  <input
+                    type="text"
+                    id="inventoryItem"
+                    class="form-control form-control-sm inventory-input"
+                    placeholder="Item name"
+                    required
+                  />
+                </div>
+                <div class="col-3">
+                  <input
+                    type="number"
+                    id="inventoryStock"
+                    class="form-control form-control-sm inventory-input"
+                    placeholder="Stock"
+                    min="0"
+                    required
+                  />
+                </div>
+                <div class="col-3">
+                  <input
+                    type="number"
+                    id="inventorySold"
+                    class="form-control form-control-sm inventory-input"
+                    placeholder="Sold"
+                    min="0"
+                    required
+                  />
+                </div>
+                <div class="col-3">
+                  <input
+                    type="number"
+                    id="inventoryReorder"
+                    class="form-control form-control-sm inventory-input"
+                    placeholder="Reorder"
+                    min="0"
+                    required
+                  />
+                </div>
+                <div class="col-3">
+                  <button type="submit" class="btn btn-chai btn-sm w-100 inventory-submit-btn">
+                    Add
+                  </button>
+                </div>
+              </form>
+
+              <div
+                class="automation-output mt-2"
+                id="inventoryInsights"
+              >              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ <footer class="footer-modern">
+  <div class="container text-center">
+    <p class="footer-text">Show Us Some Love On</p>
+    <div class="footer-icons">
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <!-- <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a> -->
+    </div>
+  </div>
+  
+</footer>
+<!-- ✅ Make sure this is at the bottom of your body tag -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous"></script>
+
+
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a2d9d5a64d.js" crossorigin="anonymous"></script>
+
+
+<!-- Font Awesome (for social icons) -->
+<script src="https://kit.fontawesome.com/a2d9d5a64d.js" crossorigin="anonymous"></script>
+    <script src="dasboard.js"></script>
+  </body>
+</html>
