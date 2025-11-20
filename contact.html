@@ -94,17 +94,30 @@
         >
       </div>
     </section>
-    <!-- 🌍 Aesthetic Google Map Embed -->
+    <!-- 🌍 On-site Map with Marker (Leaflet) -->
     <div class="map-container fade-scroll mt-4">
       <h4 class="map-title mb-3">Find Us Here</h4>
 
-      <div class="map-frame">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019743!2d77.209021!3d28.613939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM2JzUwLjIiTiA3N8KwMTInMzIuNSJF!5e0!3m2!1sen!2sin!4v1700000000000"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+      <div class="map-frame" style="position: relative;">
+        <iframe 
+          src="https://maps.google.com/maps?q=28.617570,77.384117&z=17&output=embed" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <!-- Custom label overlay -->
+        <div class="map-label-overlay">
+          <div class="map-label-content">
+            <strong>Kadak Adda</strong>
+            <span>123 Chai Street, Delhi</span>
+          </div>
+        </div>
+
+
+
       </div>
     </div>
 
@@ -144,6 +157,11 @@
       src="https://kit.fontawesome.com/a2d9d5a64d.js"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Google Maps JavaScript API initialization -->
+
+
+
 
     <script src="dasboard.js"></script>
   </body>

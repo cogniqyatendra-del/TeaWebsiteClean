@@ -4,10 +4,8 @@ body {
   color: #4a2e1f;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  animation: pageLoad 0.8s ease-out;
 }
-
-
-
 
 /* Page Load Animation */
 @keyframes pageLoad {
@@ -20,10 +18,6 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-body {
-  animation: pageLoad 0.8s ease-out;
 }
 
 header {
@@ -379,11 +373,7 @@ section {
   transform: translateY(-4px) scale(1.1);
 }
 
-/* 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-} */
+
 
 @media (max-width: 576px) {
   .footer-icons a {
@@ -830,26 +820,26 @@ nav a:hover::after {
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: 2;
-  border-radius: 15px;
+  border-radius: 20px;
 }
 
 .gallery-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: 20px;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
 }
 
 .gallery-overlay {
   position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(135deg, rgba(92, 64, 51, 0.85) 0%, rgba(213, 122, 13, 0.85) 100%);
-  border-radius: 15px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1070,9 +1060,7 @@ nav a:hover::after {
 
 .chat-message {
   display: inline-block;
-  /* Changed from default to inline-block */
   max-width: 80%;
-  /* Maximum width to prevent too wide messages */
   padding: 12px 14px;
   border-radius: 12px;
   margin-bottom: 12px;
@@ -1087,21 +1075,6 @@ nav a:hover::after {
   background-color: #5c4033;
   color: #fff;
   border-bottom-left-radius: 4px;
-}
-
-.chat-message {
-  display: inline-block;
-  /* Changed from default to inline-block */
-  max-width: 80%;
-  /* Maximum width to prevent too wide messages */
-  padding: 12px 14px;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  animation: messageSlide 0.3s ease;
-  word-wrap: break-word;
-  word-break: break-word;
 }
 
 .automation-output {
@@ -1162,11 +1135,6 @@ nav a:hover::after {
 }
 
 .inventory-table tbody tr {
-  border-bottom: 1px solid rgba(92, 64, 51, 0.1);
-  transition: all 0.2s ease;
-}
-
-.inventory-table tbody tr .inventory-table tbody tr {
   border-bottom: 1px solid rgba(92, 64, 51, 0.1);
   transition: all 0.2s ease;
 }
@@ -1737,11 +1705,6 @@ nav a:hover::after {
   opacity: 0.08;
 }
 
-.about:hover::before,
-.about:hover::after {
-  /* No changes on hover */
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .about {
@@ -1966,12 +1929,7 @@ html {
   box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4);
 }
 
-/* #contact{
-  padding-bottom: 22vh;
-} */
-
-
-/* hero section css */
+/* Hero section css */
 
 .hero {
   position: relative;
@@ -2082,30 +2040,6 @@ html {
   opacity: 0.7;
 }
 
-/* Animations */
-/* @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        } */
-/* 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        } */
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
@@ -2203,8 +2137,8 @@ html {
 
 .map-frame {
   width: 100%;
-  max-width: 850px;
-  height: 300px;
+  max-width: 1000px;
+  height: 420px;
   margin: 0 auto;
   border-radius: 18px;
   overflow: hidden;
@@ -2213,16 +2147,65 @@ html {
   background: #fff8f0;
 }
 
+.map-frame {
+  position: relative;
+}
+
+.map-frame .leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+}
+
+/* Custom map label overlay */
+.map-label-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  pointer-events: none;
+  background: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 2px solid #d57a0d;
+}
+
+.map-label-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.map-label-content strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: #5c4033;
+}
+
+.map-label-content span {
+  font-size: 13px;
+  color: #666;
+}
+
+
+
+
+
 .map-frame iframe {
   width: 100%;
   height: 100%;
   border: none;
 }
 
+/* map-actions helper removed (not used) */
+
 /* Responsive */
 @media (max-width: 576px) {
   .map-frame {
-    height: 220px;
+    height: 320px;
   }
 }
 
@@ -2230,33 +2213,35 @@ html {
 
 /* Prevent theme from overriding Lightbox image */
 .lb-image {
-    max-width: none !important;
-    width: auto !important;
-    height: auto !important;
-    max-height: 90vh !important;
-    display: block !important;
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: 90vh !important;
+  display: block !important;
 }
 
 /* Ensure Lightbox UI is visible */
-#lightbox, #lightboxOverlay {
-    z-index: 9999999 !important;
-    opacity: 1 !important;
+#lightbox,
+#lightboxOverlay {
+  z-index: 9999999 !important;
+  opacity: 1 !important;
 }
 
 .lb-close {
-    display: block !important;
-    z-index: 10000000 !important;
-    opacity: 1 !important;
-    color: white !important;
-    filter: brightness(100%) !important;
+  display: block !important;
+  z-index: 10000000 !important;
+  opacity: 1 !important;
+  color: white !important;
+  filter: brightness(100%) !important;
 }
 
 .lb-nav a {
-    display: block !important;
-    z-index: 10000000 !important;
+  display: block !important;
+  z-index: 10000000 !important;
 }
+
 /* for contact page map height decrease */
 
-#contact{
-  height: 18rem;
+#contact {
+  padding: 40px 0;
 }
