@@ -145,7 +145,7 @@
     const clearBtn = document.getElementById('clearChatbot');
     if (clearBtn && chatbotMessages) {
       clearBtn.addEventListener('click', function() {
-        chatbotMessages.innerHTML = '<div class="chat-message bot">👋 Hi! I\'m the Kadak Adda assistant. Ask me anything about our chai, snacks, or delivery.</div>';
+        chatbotMessages.innerHTML = '<div class="chat-message bot">🍵 <strong>Welcome to Kadak Adda!</strong><br><br>I\'m your personal tea companion, here to help you discover the perfect brew. ✨<br><br>Ask me about our <em>chai varieties</em>, <em>brewing tips</em>, or <em>special offers</em>!</div>';
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
       });
     }

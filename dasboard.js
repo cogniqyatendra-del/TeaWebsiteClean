@@ -1,93 +1,63 @@
 // ===== GLOBAL VARIABLES & FUNCTIONS FOR CHATBOT =====
 let chatbotHistory = [];
 
-// Global callGemini function (moved outside DOMContentLoaded)
-window.callGemini = async function (prompt, options = {}, retryCount = 0) {
-  const geminiApiKeyInput = document.getElementById("geminiApiKey");
+// Cloudflare Worker Configuration
+const CLOUDFLARE_WORKER_URL = "https://withered-base-1bc3.cogniq-yatendra.workers.dev";
+const PROJECT_ID = "TEA_WEBSITE";
 
-  function getGeminiKey() {
-    const key =
-      geminiApiKeyInput?.value.trim() ||
-      localStorage.getItem("kadak-gemini-key");
-    if (!key) throw new Error("⚠️ Please enter your Gemini API key first.");
-    return key;
-  }
+// Global callGemini function - Now uses Cloudflare Worker
+window.callGemini = async function (prompt, options = {}) {
+  const { temperature = 0.7, system = "" } = options;
 
-  const key = getGeminiKey();
-  const { history = [], temperature = 0.7, system } = options;
-  const maxRetries = 3;
-  const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+  try {
+    // 1. Format conversation history (Limit to last 10 turns to save tokens)
+    const historyText = chatbotHistory
+      .slice(-10) 
+      .map(msg => `${msg.role === "user" ? "User" : "Bot"}: ${msg.parts[0].text}`)
+      .join("\n");
 
-  const GEMINI_MODEL_PATHS = [
-    {
-      label: "gemini-2.5-flash",
-      endpoint:
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
-    },
-    {
-      label: "gemini-2.5-flash-lite",
-      endpoint:
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent",
-    },
-    {
-      label: "gemini-2.5-pro",
-      endpoint:
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent",
-    },
-  ];
+    // 2. Combine history with current prompt
+    const fullMessage = historyText 
+      ? `${historyText}\nUser: ${prompt}`
+      : prompt;
 
-  const payload = {
-    contents: [
-      ...(system ? [{ role: "user", parts: [{ text: system }] }] : []),
-      ...(Array.isArray(history) ? history : []),
-      { role: "user", parts: [{ text: prompt }] },
-    ],
-    generationConfig: { temperature, maxOutputTokens: 512 },
-  };
+    const response = await fetch(CLOUDFLARE_WORKER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Project-ID": PROJECT_ID
+      },
+      body: JSON.stringify({
+        message: fullMessage,
+        systemInstruction: system,
+        model: "gemma-3-4b-it",
+        temperature: temperature,
+        topP: 0.95,
+        topK: 64,
+        maxOutputTokens: 512
+      })
+    });
 
-  const errors = [];
-
-  for (const model of GEMINI_MODEL_PATHS) {
-    try {
-      const res = await fetch(
-        `${model.endpoint}?key=${encodeURIComponent(key)}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const textBody = await res.text();
-      if (!res.ok) {
-        if (res.status === 503 && retryCount < maxRetries) {
-          console.warn(`Retrying Gemini (attempt ${retryCount + 1})...`);
-          await delay(1500 * (retryCount + 1));
-          return window.callGemini(prompt, options, retryCount + 1);
-        }
-        errors.push(`Gemini error (${res.status}): ${textBody}`);
-        continue;
-      }
-
-      const data = JSON.parse(textBody);
-      const parts = data?.candidates?.[0]?.content?.parts;
-      const text = Array.isArray(parts)
-        ? parts
-            .map((p) => p.text)
-            .filter(Boolean)
-            .join("\n")
-            .trim()
-        : "";
-
-      if (!text) throw new Error("Gemini returned an empty response.");
-      return { text, full: data, model: model.label };
-    } catch (e) {
-      errors.push(`${model.label}: ${e.message}`);
-      continue;
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Worker error: ${response.status}`);
     }
-  }
 
-  throw new Error(errors.join(" | ") || "All Gemini models failed.");
+    const data = await response.json();
+    
+    if (!data.success || !data.message) {
+      throw new Error("Invalid response from worker");
+    }
+
+    return { 
+      text: data.message, 
+      model: data.model || "gemini-2.5-flash-lite",
+      projectId: data.projectId
+    };
+  } catch (error) {
+    console.error("Cloudflare Worker Error:", error);
+    throw new Error(error.message || "Failed to connect to chatbot service");
+  }
 };
 
 // Global renderChat function
@@ -120,13 +90,30 @@ window.handleChatPrompt = async function (prompt) {
     chatbotPrompt.value = "";
   }
 
-  window.renderChat("bot", "☕ Thinking...");
+  window.renderChat("bot", "🍵 Thinking...");
 
   try {
     const { text } = await window.callGemini(prompt, {
-      history: chatbotHistory,
       system:
-        "You are Kadak Adda's friendly chai lounge assistant. Keep replies short, warm, and about chai, snacks, and delivery.",
+        "You are the friendly, knowledgeable AI host of **Kadak Adda**, a premium chai spot used by students and professionals. \n" +
+        "**OUR MENU:** \n" +
+        "- **Masala Chai**: Spiced, aromatic, and bold (Customer favorite!). \n" +
+        "- **Kulhad Chai**: Earthy flavor served in traditional clay cups. \n" +
+        "- **Ginger / Elaichi Chai**: Refreshing authentic Indian blends. \n" +
+        "- **Chocolate Chai**: A rich, sweet twist on classic chai. \n" +
+        "- **Cold / Iced Tea**: Perfect for a cool refresh. \n" +
+        "- **Snacks**: Bun Maska, Maggi, and Sandwiches. \n\n" +
+        "**ABOUT US:** \n" +
+        "- **Location**: 123 Chai Street, Delhi, India. \n" +
+        "- **Vibe**: Cozy, modern setup. Great for hanging out or working. \n" +
+        "- **Services**: Dine-in, Takeaway (Order via button), and Delivery (30-45 mins nearby). \n" +
+        "- **Hours**: Open Daily 8:00 AM - 10:00 PM. \n\n" +
+        "**YOUR GUIDELINES:** \n" +
+        "- Be warm and welcoming (Use emojis like ☕, ✨, 🍪). \n" +
+        "- Promote our 'Fresh Handcrafted Chai'. \n" +
+        "- If asked to order, guide them to the 'Order for Takeaway' button on the homepage. \n" +
+        "- Keep answers short, crisp, and helpful. NEVER use placeholders. \n" +
+        "- IMPORTANT: Do NOT start your reply with 'Bot:' or 'AI:'. Just start speaking.",
     });
 
     chatbotHistory.push(
@@ -134,14 +121,15 @@ window.handleChatPrompt = async function (prompt) {
       { role: "model", parts: [{ text }] }
     );
 
+    // clean up text if it starts with "Bot:" or "AI:"
+    const cleanText = text.replace(/^(Bot|AI|System):\s*/i, "").trim();
+
     if (chatbotMessages.lastChild) {
-      chatbotMessages.lastChild.textContent = text;
+      chatbotMessages.lastChild.textContent = cleanText;
     }
     chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
   } catch (err) {
-    const errorMsg = err.message.includes("503")
-      ? "Server is busy, please try again."
-      : err.message;
+    const errorMsg = err.message || "Unable to connect to chatbot service. Please try again.";
 
     if (chatbotMessages.lastChild) {
       chatbotMessages.lastChild.textContent = "⚠️ " + errorMsg;
@@ -209,102 +197,40 @@ document.addEventListener("DOMContentLoaded", function () {
     closeMobileNav();
   });
 
-  // ===== Gemini API Setup & Auto-Hide Banner =====
-  const geminiApiKeyInput = document.getElementById("geminiApiKey");
-  const geminiStatus = document.getElementById("geminiStatus");
+  // ===== API Key Banner (Optional - No longer required with Cloudflare Worker) =====
   const apiKeyBanner = document.querySelector(".api-key-banner");
-
-  // Function to hide the API banner
-  function hideApiBanner() {
-    if (apiKeyBanner) {
-      apiKeyBanner.style.transition = "opacity 0.3s ease";
-      apiKeyBanner.style.opacity = "0";
-      setTimeout(() => {
-        apiKeyBanner.style.display = "none";
-      }, 300);
-    }
+  
+  // Auto-hide API key banner since worker handles authentication
+  if (apiKeyBanner) {
+    apiKeyBanner.style.display = "none";
   }
 
-  // Function to show the API banner
-  window.showApiKeyBanner = function () {
-    if (apiKeyBanner) {
-      apiKeyBanner.style.display = "block";
-      apiKeyBanner.style.opacity = "1";
-    }
-  };
+  // ===== CHATBOT - SETUP =====
+  const chatbotMessages = document.getElementById("chatbotMessages");
+  const chatbotForm = document.getElementById("chatbotForm");
+  const chatbotPrompt = document.getElementById("chatbotPrompt");
 
-  // Check if API key exists and hide banner on page load
-  if (geminiApiKeyInput && geminiStatus) {
-    const savedKey = localStorage.getItem("kadak-gemini-key");
-    if (savedKey) {
-      geminiApiKeyInput.value = savedKey;
-      geminiStatus.textContent = "✅ API key loaded from local storage.";
-      // Hide the banner if key already exists
-      hideApiBanner();
-    }
-
-    function setGeminiStatus(msg, isError = false) {
-      geminiStatus.textContent = msg;
-      geminiStatus.classList.toggle("text-danger", isError);
-      geminiStatus.classList.toggle("text-success", !isError);
-    }
-
-    // ===== Key Save / Toggle =====
-    document.getElementById("saveGeminiKey")?.addEventListener("click", () => {
-      const key = geminiApiKeyInput.value.trim();
-      if (!key) return setGeminiStatus("Enter a key before saving.", true);
-      localStorage.setItem("kadak-gemini-key", key);
-      setGeminiStatus("✅ API key saved locally.");
-
-      // Hide banner after successful save
-      setTimeout(() => {
-        hideApiBanner();
-      }, 800);
+  if (chatbotMessages && chatbotForm && chatbotPrompt) {
+    // ===== Form Submit Handler =====
+    chatbotForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const prompt = chatbotPrompt.value.trim();
+      if (prompt) {
+        window.handleChatPrompt(prompt);
+      }
     });
 
-    document
-      .getElementById("toggleGeminiKey")
-      ?.addEventListener("click", (e) => {
-        const isPass = geminiApiKeyInput.type === "password";
-        geminiApiKeyInput.type = isPass ? "text" : "password";
-        e.currentTarget.textContent = isPass ? "Hide" : "Show";
+    // ===== Clear Chat Button =====
+    const clearChatBtn = document.getElementById("clearChatbot");
+    if (clearChatBtn) {
+      clearChatBtn.addEventListener("click", () => {
+        chatbotMessages.innerHTML =
+          '<div class="chat-message bot">🍵 <strong>Welcome to Kadak Adda!</strong><br><br>I\'m your personal tea companion, here to help you discover the perfect brew. ✨<br><br>Ask me about our <em>chai varieties</em>, <em>brewing tips</em>, or <em>special offers</em>!</div>';
+        chatbotHistory.length = 0;
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
       });
-
-    // ===== CHATBOT - SETUP =====
-    const chatbotMessages = document.getElementById("chatbotMessages");
-    const chatbotForm = document.getElementById("chatbotForm");
-    const chatbotPrompt = document.getElementById("chatbotPrompt");
-
-    if (chatbotMessages && chatbotForm && chatbotPrompt) {
-      // ===== Form Submit Handler =====
-      chatbotForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const prompt = chatbotPrompt.value.trim();
-        if (prompt) {
-          window.handleChatPrompt(prompt);
-        }
-      });
-
-      // ===== Clear Chat Button =====
-      const clearChatBtn = document.getElementById("clearChatbot");
-      if (clearChatBtn) {
-        clearChatBtn.addEventListener("click", () => {
-          chatbotMessages.innerHTML =
-            '<div class="chat-message bot">👋 Hi! I\'m the Kadak Adda assistant. Ask me anything about our chai, snacks, or delivery.</div>';
-          chatbotHistory.length = 0;
-          chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        });
-      }
     }
   }
-
-  // Optional: Add a function to clear API key and show banner again
-  window.clearGeminiApiKey = function () {
-    localStorage.removeItem("kadak-gemini-key");
-    if (geminiApiKeyInput) geminiApiKeyInput.value = "";
-    if (geminiStatus) geminiStatus.textContent = "";
-    window.showApiKeyBanner();
-  };
 
   // ===== INVENTORY & SALES DASHBOARD LOGIC =====
   const inventoryTable = document.getElementById("inventoryTable");
